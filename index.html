@@ -30,19 +30,23 @@
 
                 function move(ev) {
 //                    不判断，会出现两个指头到一块的时候出现卡顿。
-//                    判断了，每个手指就有一个唯一ID，不会重合了
+//                    判断了，每个手指就有一个唯一ID，不会重合了,但还是有问题
                     if(id == ev.targetTouches[0].identifier){
                         l = ev.targetTouches[0].clientX - oldX;
                         t = ev.targetTouches[0].clientY - oldY;
                         obj.style.webkitTransform = 'translate('+l+'px,'+t+'px)';
                     }
                 }
-                function end() {
-                    obj.style.left = oldL + l +"px";
-                    obj.style.top = oldT + t + "px";
-                    obj.style.webkitTransform = '';
-                    obj.removeEventListener('touchmove',move,false);
-                    obj.removeEventListener('touchend',end,false)
+                function end(ev) {
+//                    结束事件里targetTouches里面没内容，需要到changedTouches里面找
+                    if(ev.changedTouches[0].identifer == id){
+                        obj.style.left = oldL + l +"px";
+                        obj.style.top = oldT + t + "px";
+                        obj.style.webkitTransform = '';
+                        obj.removeEventListener('touchmove',move,false);
+                        obj.removeEventListener('touchend',end,false)
+                    }
+
                 }
                 obj.addEventListener('touchmove',move,false);
                 obj.addEventListener('touchend',end,false);

@@ -34,7 +34,7 @@
                     if(id == ev.targetTouches[0].identifier){
                         l = ev.targetTouches[0].clientX - oldX;
                         t = ev.targetTouches[0].clientY - oldY;
-                        obj.style.webkitTransform = 'translate('+l+'px,'+t+'px)';
+                        obj.style.WebkitTransform = 'translate('+l+'px,'+t+'px)';
                     }
                 }
                 function end(ev) {
@@ -42,7 +42,7 @@
                     if(ev.changedTouches[0].identifier == id){
                         obj.style.left = oldL + l +"px";
                         obj.style.top = oldT + t + "px";
-                        obj.style.webkitTransform = '';
+                        obj.style.WebkitTransform = '';
                         l=0;
                         t=0;
                         obj.removeEventListener('touchmove',move,false);

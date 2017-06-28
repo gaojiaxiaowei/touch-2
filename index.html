@@ -39,7 +39,7 @@
                 }
                 function end(ev) {
 //                    结束事件里targetTouches里面没内容，需要到changedTouches里面找
-                    if(ev.changedTouches[0].identifer == id){
+                    if(ev.changedTouches[0].identifier == id){
                         obj.style.left = oldL + l +"px";
                         obj.style.top = oldT + t + "px";
                         obj.style.webkitTransform = '';

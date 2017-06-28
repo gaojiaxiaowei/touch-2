@@ -5,15 +5,15 @@
     <title>touch-2</title>
     <style>
         div {
-            width:200px;
-            height:200px;
+            width:500px;
+            height:500px;
             background: cyan;
             position: absolute;
             top:0;
             left:0;
         }
         #div2{
-            top:220px;
+            top:520px;
             background: greenyellow;
         }
     </style>
@@ -26,11 +26,16 @@
                 var oldY = ev.targetTouches[0].clientY;
                 var oldL = obj.offsetLeft;
                 var oldT = obj.offsetTop;
+                var id = ev.targetTouches[0].identifier;
 
                 function move(ev) {
-                    l = ev.targetTouches[0].clientX - oldX;
-                    t = ev.targetTouches[0].clientY - oldY;
-                    obj.style.webkitTransform = 'translate('+l+'px,'+t+'px)';
+//                    不判断，会出现两个指头到一块的时候出现卡顿。
+//                    判断了，每个手指就有一个唯一ID，不会重合了
+                    if(id == ev.targetTouches[0].identifier){
+                        l = ev.targetTouches[0].clientX - oldX;
+                        t = ev.targetTouches[0].clientY - oldY;
+                        obj.style.webkitTransform = 'translate('+l+'px,'+t+'px)';
+                    }
                 }
                 function end() {
                     obj.style.left = oldL + l +"px";

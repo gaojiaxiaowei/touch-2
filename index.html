@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>touch-2</title>
+    <style>
+        div {
+            width:200px;
+            height:200px;
+            background: cyan;
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        #div2{
+            top:220px;
+            background: greenyellow;
+        }
+    </style>
+    <script>
+        function drag(obj) {
+            var l = 0;
+            var t = 0;
+            obj.addEventListener('touchstart',function (ev) {
+                var oldX= ev.targetTouches[0].clientX;
+                var oldY = ev.targetTouches[0].clientY;
+                var oldL = obj.offsetLeft;
+                var oldT = obj.offsetTop;
+
+                function move(ev) {
+                    l = ev.targetTouches[0].clientX - oldX;
+                    t = ev.targetTouches[0].clientY - oldY;
+                    obj.style.webkitTransform = 'translate('+l+'px,'+t+'px)';
+                }
+                function end() {
+                    obj.style.left = oldL + l +"px";
+                    obj.style.top = oldT + t + "px";
+                    obj.style.webkitTransform = '';
+                    obj.removeEventListener('touchmove',move,false);
+                    obj.removeEventListener('touchend',end,false)
+                }
+                obj.addEventListener('touchmove',move,false);
+                obj.addEventListener('touchend',end,false);
+                ev.preventDefault();
+            },false)
+        }
+        window.addEventListener('DOMContentLoaded',function () {
+            var oDiv = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+            drag(oDiv);
+            drag(oDiv2);
+
+        },false)
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+</body>
+</html>

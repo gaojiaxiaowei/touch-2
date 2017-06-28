@@ -43,6 +43,8 @@
                         obj.style.left = oldL + l +"px";
                         obj.style.top = oldT + t + "px";
                         obj.style.webkitTransform = '';
+                        l=0;
+                        t=0;
                         obj.removeEventListener('touchmove',move,false);
                         obj.removeEventListener('touchend',end,false)
                     }
